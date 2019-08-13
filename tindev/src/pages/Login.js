@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import AsyncStorage from '@react-native-community/async-storage';
 import { KeyboardAvoidingView, Platform, Text, StyleSheet, Image, TextInput, TouchableOpacity } from 'react-native';
 
-import api from '../services/api';
-
 import logo from '../assets/logo.png';
+
+import api from '../services/api';
 
 export default function Login({ navigation }) {
     const [user, setUser] = useState('');
@@ -12,27 +12,31 @@ export default function Login({ navigation }) {
     useEffect(() => {
         AsyncStorage.getItem('user').then(user => {
             if (user) {
-                console.log(`Usuário ${user} já estava logado.`)
-                navigation.navigate('Main', { _id });
+                navigation.navigate('Main', { user });
             }
         })
     }, []);
 
     async function handleLogin() {
         try {
-            const response = await api.post('/devs', { username: user });
-            const { _id } = response.data;
-            await AsyncStorage.setItem('user', _id);
-            navigation.navigate('Main', { _id });
-        }
-        catch (error) {
-            console.log(error)
-        }
+            const reponse = await api.post('/devs', {
+                username: user
+            });
 
+            const { _id } = reponse.data;
+
+            await AsyncStorage.setItem('user', _id);
+
+            navigation.navigate('Main', {user: _id });
+        }
+        catch (ex) {
+            console.log(ex);
+        }
     }
+
     return (
         <KeyboardAvoidingView
-            behavior="padding"
+            behavior='padding'
             enabled={Platform.OS === 'ios'}
             style={styles.container}
         >
@@ -48,11 +52,14 @@ export default function Login({ navigation }) {
                 onChangeText={setUser}
             />
 
-            <TouchableOpacity onPress={handleLogin} style={styles.button}>
+            <TouchableOpacity
+                style={styles.button}
+                onPress={handleLogin}
+            >
                 <Text style={styles.buttonText}>Enviar</Text>
             </TouchableOpacity>
         </KeyboardAvoidingView>
-    );
+    )
 }
 
 const styles = StyleSheet.create({
@@ -86,5 +93,5 @@ const styles = StyleSheet.create({
         color: '#FFF',
         fontWeight: 'bold',
         fontSize: 16,
-    },
+    }
 });
