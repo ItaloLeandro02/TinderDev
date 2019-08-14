@@ -11,7 +11,7 @@ import dislike from '../assets/dislike.png';
 export default function Main({ navigation }) {
     const id = navigation.getParam('user');
     const [users, setUsers] = useState([]);
-    
+
     useEffect(() => {
         async function loadUsers() {
             try {
@@ -20,7 +20,8 @@ export default function Main({ navigation }) {
                         user: id,
                     }
                 })
-                
+                console.log(id)
+
                 setUsers(response.data);
             }
             catch (ex) {
