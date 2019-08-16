@@ -9,10 +9,9 @@ module.exports = {
 
             const users = await Dev.find({
                 $and: [
-                    { _id: { $ne: user } }, // Não listar o usuário atual
-                    { _id: { $nin: loggedDev.likes } }, // Não listar usuários que já deu like
-                    { _id: { $nin: loggedDev.dislikes } }, // Não listar usuários que já deu dislike
-                ],
+                    { _id: { $ne: user } },
+                    { _id: { $nin: loggedDev.likes } }, 
+                    { _id: { $nin: loggedDev.dislikes } },                 ],
             });
 
             return res.json(users);
