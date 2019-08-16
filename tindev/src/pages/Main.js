@@ -100,7 +100,7 @@ export default function Main({ navigation }) {
             {matchDev && (
                 <View style={styles.matchContainer}>
                     <Image style={styles.matchImage} source={itsamatch} />
-                    <Image style={styles.matchAvatar} source={{ uri: matchDev.dev.avatar }} />
+                    <Image style={styles.matchAvatar} source={{ uri: matchDev.avatar }} />
 
                     <Text style={styles.matchName}>{matchDev.name}</Text>
                     <Text style={styles.matchBio}>{matchDev.bio}</Text>
