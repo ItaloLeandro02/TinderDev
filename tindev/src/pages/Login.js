@@ -19,18 +19,13 @@ export default function Login({ navigation }) {
 
     async function handleLogin() {
         try {
-            const reponse = await api.post('/devs', {
-                username: user
-            });
+            const reponse = await api.post('/devs', { username: user });
 
             const { _id } = reponse.data;
 
-            console.log(_id);
-
-
             await AsyncStorage.setItem('user', _id);
 
-            navigation.navigate('Main', {user: _id });
+            navigation.navigate('Main', { user: _id });
         }
         catch (ex) {
             console.log(ex);
@@ -38,11 +33,7 @@ export default function Login({ navigation }) {
     }
 
     return (
-        <KeyboardAvoidingView
-            behavior='padding'
-            enabled={Platform.OS === 'ios'}
-            style={styles.container}
-        >
+        <KeyboardAvoidingView behavior='padding' enabled={Platform.OS === 'ios'} style={styles.container} >
             <Image source={logo} />
 
             <TextInput
